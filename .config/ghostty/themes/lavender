@@ -1,0 +1,26 @@
+# Lavender colorscheme for Ghostty
+# Ported from jthvai/lavender.nvim
+# https://codeberg.org/jthvai/lavender.nvim
+
+palette = 0=#1b1c2b
+palette = 1=#ff5370
+palette = 2=#2df4c0
+palette = 3=#ffc777
+palette = 4=#5fafff
+palette = 5=#b4a4f4
+palette = 6=#04d1f9
+palette = 7=#d6e7f0
+palette = 8=#515772
+palette = 9=#ff757f
+palette = 10=#59d6b5
+palette = 11=#add8e6
+palette = 12=#7486d6
+palette = 13=#b994f1
+palette = 14=#80cbc4
+palette = 15=#eeffff
+background = #1b1c2b
+foreground = #eeffff
+cursor-color = #b4a4f4
+cursor-text = #1b1c2b
+selection-background = #403c64
+selection-foreground = #eeffff
