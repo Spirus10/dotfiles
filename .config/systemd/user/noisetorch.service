@@ -1,7 +1,6 @@
 [Unit]
 Description=Noisetorch Noise Cancelling
-Requires=sys-devices-pci0000:00-0000:00:01.2-0000:02:00.0-0000:03:08.0-0000:08:00.3-usb3-3\x2d6-3\x2d6.3-3\x2d6.3:1.0-sound-card2-controlC2.device
-After=sys-devices-pci0000:00-0000:00:01.2-0000:02:00.0-0000:03:08.0-0000:08:00.3-usb3-3\x2d6-3\x2d6.3-3\x2d6.3:1.0-sound-card2-controlC2.device
+After=sound.target
 After=pipewire.service
 
 [Service]
@@ -13,4 +12,4 @@ Restart=on-failure
 RestartSec=3
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
