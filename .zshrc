@@ -119,9 +119,9 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # full odds shiny hunt
 if (( RANDOM % 8192 == 0 )); then
-	pokemon-colorscripts -r -s
+	krabby random -s
 else
-	pokemon-colorscripts -r
+	krabby random
 fi
 
 export EDITOR=nvim
