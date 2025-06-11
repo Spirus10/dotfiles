@@ -108,6 +108,8 @@ source $ZSH/oh-my-zsh.sh
 ### WAMMU WORLD ####################
 ####################################
 
+source ~/.aliases
+
 reboot_to_windows()
 {
 	windows_title=$(grep -i windows /boot/grub/grub.cfg | cut -d "'" -f 2)
