@@ -119,12 +119,7 @@ alias reboot-to-windows='reboot_to_windows'
 
 export PATH="$HOME/.local/bin:$PATH"
 
-# full odds shiny hunt
-if (( RANDOM % 8192 == 0 )); then
-	krabby random -s
-else
-	krabby random
-fi
+krabby random
 
 export EDITOR=nvim
 
@@ -264,3 +259,8 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8,underline"
 # 2. Source this file in your .zshrc: source path/to/this/file
 # 3. Restart your terminal or run: source ~/.zshrc
 # 4. For best results, use with the lavender Ghostty colorscheme
+
+[ -f "/home/wammu/.ghcup/env" ] && . "/home/wammu/.ghcup/env" # ghcup-env
+
+# opencode
+export PATH=/home/wammu/.opencode/bin:$PATH
