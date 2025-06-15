@@ -1,0 +1,2 @@
+# Trigger when any Logitech USB device is added
+SUBSYSTEM=="usb", ATTR{idVendor}=="046d", ACTION=="add", TAG+="systemd", ENV{SYSTEMD_WANTS}="logitech-devices.target"
