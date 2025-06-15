@@ -6,7 +6,7 @@ After=pipewire.service
 [Service]
 Type=simple
 RemainAfterExit=yes
-ExecStart=%h/.local/bin/noisetorch -i -s alsa_input.usb-Blue_Microphones_Yeti_Stereo_Microphone_797_2019_03_02_42333-00.pro-input-0 -t 95
+ExecStart=%h/.local/bin/noisetorch -i -s source_ec -t 95
 ExecStop=%h/.local/bin/noisetorch -u
 Restart=on-failure
 RestartSec=3
