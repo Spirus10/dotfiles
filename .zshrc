@@ -108,6 +108,11 @@ source $ZSH/oh-my-zsh.sh
 ### WAMMU WORLD ####################
 ####################################
 
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory
+
 source ~/.aliases
 
 reboot_to_windows()
