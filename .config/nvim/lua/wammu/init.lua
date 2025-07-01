@@ -1,11 +1,11 @@
-require("wammu.set")
+quire("wammu.set")
 require("wammu.remap")
 require("wammu.lazy_init")
 
 vim.wo.relativenumber = true
 
 local augroup = vim.api.nvim_create_augroup
-local ThePrimeagenGroup = augroup('wammu', {})
+local WammuGroup = augroup('wammu', {})
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
