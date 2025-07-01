@@ -1,4 +1,4 @@
-quire("wammu.set")
+require("wammu.set")
 require("wammu.remap")
 require("wammu.lazy_init")
 
