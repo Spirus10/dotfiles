@@ -269,3 +269,5 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8,underline"
 
 # opencode
 export PATH=/home/wammu/.opencode/bin:$PATH
+
+export PATH=$PATH:/home/wammu/.spicetify
