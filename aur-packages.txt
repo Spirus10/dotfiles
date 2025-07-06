@@ -1,0 +1,12 @@
+1password
+grub-customizer
+gss-ntlmssp
+hollywood
+powershell
+python-pywal16
+quickshell
+spotify
+ttf-material-icons-git
+wireguard-go-git
+yay
+yay-debug
