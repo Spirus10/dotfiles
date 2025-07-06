@@ -51,6 +51,27 @@ while read -r package; do
     yay -S --noconfirm "$package"
 done < aur-packages.txt
 
+# Set up zsh as default shell and install oh-my-zsh
+log "Setting up zsh and oh-my-zsh..."
+if [ "$SHELL" != "/bin/zsh" ]; then
+    chsh -s /bin/zsh
+fi
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi
+
+log "Copying .zshrc..."
+cp ./.zshrc ~/
+cp ./.aliases ~/
+
+log "Copying wallpaper..."
+mkdir -p ~/images
+cp ./assets/bg.gif ~/images/
+
+log "Copying keyd config..."
+sudo cp ./keyd/keyd.conf /etc/keyd/
+
 # Copy dotfiles
 log "Setting up dotfiles..."
 cp -r ./.config/* ~/.config/
@@ -62,7 +83,6 @@ sudo udevadm control --reload-rules
 
 log "Copying Ghostty Theme..."
 sudo cp -r .config/ghostty/themes/* /usr/share/ghostty/themes/
-
 
 # Enable services
 log "Enabling services..."
