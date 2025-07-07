@@ -19,6 +19,7 @@ gnu-netcat
 grim
 grub
 hyprland
+hyprpaper
 inotify-tools
 jq
 keyd
