@@ -122,6 +122,13 @@ reboot_to_windows()
 }
 alias reboot-to-windows='reboot_to_windows'
 
+reboot_to_uefi()
+{
+    uefi_title=$(grep -i uefi /boot/grub/grub.cfg | cut -d "'" -f 2)
+    sudo grub-reboot "$uefi_title" && sudo reboot
+}
+alias reboot-to-uefi='reboot_to_uefi'
+
 export PATH="$HOME/.local/bin:$PATH"
 
 krabby random
