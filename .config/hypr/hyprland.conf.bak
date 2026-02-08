@@ -226,13 +226,7 @@ device {
 ### Window Rules ###
 ####################
 
-windowrule {
-  name = windowrule-1
-  border_color = rgb(ad82ed) rgb(212337)
-  suppress_event = maximize
-  match:class = .*
-}
-
+windowrulev2 = bordercolor rgb(ad82ed) rgb(212337), class:.*
 
 
 ###################
@@ -332,16 +326,7 @@ bind = $mainMod SHIFT, S, exec, grim -g "$(slurp -w 0)" - | swappy -f -
 # windowrule = float,class:^(kitty)$,title:^(kitty)$
 
 # Ignore maximize requests from apps. You'll probably like this.
+windowrule = suppressevent maximize, class:.*
 
 # Fix some dragging issues with XWayland
-windowrule {
-  name = windowrule-2
-  no_focus = on
-  match:class = ^$
-  match:title = ^$
-  match:xwayland = 1
-  match:float = 1
-  match:fullscreen = 0
-  match:pin = 0
-}
-
+windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
