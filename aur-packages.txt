@@ -1,10 +1,12 @@
 1password
+gef-git
+gnu-netcat
 grub-customizer
 gss-ntlmssp
 hollywood
-powershell
+paru
+paru-debug
 python-pywal16
-quickshell
 spotify
 ttf-material-icons-git
 wireguard-go-git
