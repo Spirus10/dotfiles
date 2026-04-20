@@ -179,9 +179,6 @@ MISSING_SCRIPTS=(
     "$HOME/.config/hypr/scripts/copy-with-history.sh"
     "$HOME/.config/hypr/scripts/paste.sh"
     "$HOME/.config/hypr/scripts/clipboard-history.sh"
-    "$HOME/.config/waybar/scripts/swwwallpaper.sh"
-    "$HOME/.config/waybar/scripts/cliphist.sh"
-    "$HOME/.config/waybar/scripts/swwwallselect.sh"
 )
 
 for script in "${MISSING_SCRIPTS[@]}"; do
