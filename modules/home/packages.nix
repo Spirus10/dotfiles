@@ -17,10 +17,8 @@
 
     # Hyprland desktop companions referenced by hyprland.nix binds
     dolphin
-    wofi
-    cliphist
-    wl-clipboard
-    wtype
+    cliphist        # clipboard history backend read by quickshell
+    wl-clipboard    # wl-copy / wl-paste
     grim
     slurp
     swappy

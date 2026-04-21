@@ -20,7 +20,6 @@ in
       "$mainMod"     = "SUPER";
       "$terminal"    = "ghostty";
       "$fileManager" = "dolphin";
-      "$menu"        = "wofi --show drun";
       "$browser"     = "firefox";
       "$passManager" = "1password";
 
@@ -146,7 +145,7 @@ in
         "$mainMod, B, exec, $browser"
         "$mainMod, D, exec, discord"
         "$mainMod, E, exec, $fileManager"
-        "$mainMod, R, exec, $menu"
+        "$mainMod, R, exec, qs ipc call launcher toggle"
         "$mainMod, P, exec, $passManager"
 
         # Window mgmt
@@ -155,14 +154,12 @@ in
         "$mainMod, F, fullscreen"
         "$mainMod, J, togglesplit"
 
-        # Quickshell IPC (the `qs` daemon itself comes up in Phase 4).
+        # Quickshell IPC — launcher, media, clipboard all handled by
+        # the `qs` daemon (modules/home/quickshell.nix). Mapped IPC
+        # handlers live in assets/quickshell/shell.qml.
         "$mainMod, SPACE, exec, qs ipc call launcher toggle"
         "$mainMod, N, exec, qs ipc call media toggle"
-        "$mainMod SHIFT, V, exec, qs ipc call clipboard toggle"
-
-        # Phase-3 fallback clipboard picker (cliphist -> wofi).
-        # The nicer Quickshell clipboard widget replaces this later.
-        ''$mainMod, V, exec, sh -c 'cliphist list | wofi --dmenu | cliphist decode | wl-copy' ''
+        "$mainMod, V, exec, qs ipc call clipboard toggle"
 
         # Focus
         "$mainMod, left,  movefocus, l"
