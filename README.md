@@ -152,6 +152,12 @@ sudo nixos-rebuild switch --flake .#wammu
 - `test` — activate now, don't add to bootloader (reverts on reboot)
 - `build` — build only, no activation (useful for catching errors)
 
+To build the VM variant from this same root flake:
+
+```
+sudo nixos-rebuild switch --flake .#wammu-vm
+```
+
 ### Adding a package
 
 **System CLI** (e.g. `htop`) — needed globally, at login shells, in
@@ -198,6 +204,23 @@ nix flake update nixpkgs             # bump one input
 ```
 
 Commit `flake.lock` afterward.
+
+### GitHub auth (PAT) for flakes
+
+If you hit unauthenticated GitHub rate limits while fetching flake
+inputs, add a token to Nix's config on the machine doing the build:
+
+```
+# user-level (non-NixOS)
+mkdir -p ~/.config/nix
+printf 'access-tokens = github.com=YOUR_TOKEN\n' >> ~/.config/nix/nix.conf
+
+# or system-wide on NixOS
+sudo sh -c "printf 'access-tokens = github.com=YOUR_TOKEN\n' >> /etc/nix/nix.conf"
+```
+
+Then restart the daemon (`sudo systemctl restart nix-daemon`) or open a
+new shell before retrying.
 
 ### Rolling back
 
