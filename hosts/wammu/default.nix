@@ -15,8 +15,11 @@ nixosSystem {
     # User account(s).
     ../../users/wammu
 
-    # Secrets (agenix). Wired up in Phase 6.
-    # inputs.agenix.nixosModules.default
+    # agenix wires `age.secrets.<name>.file = ...` into a systemd
+    # tmpfiles activation that decrypts into /run/agenix/<name> at
+    # boot using the host's ed25519 SSH key. The recipient map
+    # lives in secrets/secrets.nix (CLI-side only).
+    inputs.agenix.nixosModules.default
 
     # Host identity.
     {

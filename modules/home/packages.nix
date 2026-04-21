@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   # User-level applications. System-level CLI (git, curl, etc.) is in
@@ -38,5 +38,10 @@
     # `nh` — friendlier `nixos-rebuild` wrapper. Used by the `nhu`
     # alias and by the rebuild helper script added in Phase 7.
     nh
+  ] ++ [
+    # agenix CLI — for editing secrets via `agenix -e <name>.age`.
+    # Reads secrets/secrets.nix for the recipient map. Shipped via
+    # the flake input so the CLI version matches the NixOS module.
+    inputs.agenix.packages.${pkgs.system}.default
   ];
 }
