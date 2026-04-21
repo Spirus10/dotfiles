@@ -147,12 +147,14 @@
         truncation_length  = 4;
         truncate_to_repo   = true;
       };
-      # oh-my-zsh robbyrussell: `git:(branch)` in blue, no branch icon.
-      # Inside `[...]`, parens render literally; outside starship would
-      # parse them as a conditional group.
+      # oh-my-zsh robbyrussell: `git:(branch)` with the wrapper in one
+      # color and the branch name in another. Parens must be escaped
+      # (`\\(`, `\\)` in Nix → `\(`, `\)` on disk) or starship parses
+      # them as conditional groups and eats them. Three styled groups
+      # let us give the wrapper and the branch different colors.
       git_branch = {
-        format = "[git:($branch)]($style) ";
-        style  = "fg:${theme.blue.hex}";
+        format = "[git:\\(]($style)[$branch](bold fg:${theme.red.hex})[\\)]($style) ";
+        style  = "fg:${theme.cyan.hex}";
       };
       git_status = {
         format = "[$all_status$ahead_behind]($style) ";
