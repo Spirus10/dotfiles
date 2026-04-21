@@ -16,7 +16,7 @@
     _1password-cli
 
     # Hyprland desktop companions referenced by hyprland.nix binds
-    dolphin
+    kdePackages.dolphin
     cliphist        # clipboard history backend read by quickshell
     wl-clipboard    # wl-copy / wl-paste
     grim
