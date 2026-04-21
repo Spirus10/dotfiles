@@ -82,8 +82,8 @@ shell, fonts' XDG setup, GUI apps) go under `modules/home/`.
    ```
    sudo nix --experimental-features 'nix-command flakes' run \
      github:nix-community/disko -- \
-     --mode disko --flake github:spirus10/dotfiles/nixos-migration#wammu
-   sudo nixos-install --flake github:spirus10/dotfiles/nixos-migration#wammu
+     --mode disko --flake github:spirus10/dotfiles#wammu
+   sudo nixos-install --flake github:spirus10/dotfiles#wammu
    ```
 
 4. Set the user password when prompted, reboot, pull the disk.
