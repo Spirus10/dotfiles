@@ -1,0 +1,9 @@
+# Nix build outputs
+result
+result-*
+
+# direnv caches
+.direnv/
+
+# agenix private identity (never commit)
+.agenix/
