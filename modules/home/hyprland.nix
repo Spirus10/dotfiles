@@ -130,10 +130,23 @@ in
       };
 
       windowrule = [
-        "bordercolor ${theme.purple.rgba "ff"} ${theme.bgAlt.rgba "ff"}, class:.*"
-        "suppressevent maximize, class:.*"
+        {
+          name = "theme-border-and-suppress";
+          border_color   = "${theme.purple.rgba "ff"} ${theme.bgAlt.rgba "ff"}";
+          suppress_event = "maximize";
+          "match:class"  = ".*";
+        }
         # Fix drag issues with empty-title xwayland floaters.
-        "nofocus, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0"
+        {
+          name = "xwayland-empty-floater-nofocus";
+          no_focus            = "on";
+          "match:class"       = "^$";
+          "match:title"       = "^$";
+          "match:xwayland"    = 1;
+          "match:float"       = 1;
+          "match:fullscreen"  = 0;
+          "match:pin"         = 0;
+        }
       ];
 
       bind = [
