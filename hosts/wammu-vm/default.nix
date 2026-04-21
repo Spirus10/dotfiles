@@ -41,6 +41,7 @@ nixosSystem {
       # VM fallback: keep SDDM on X11 and bypass UWSM wrapper for the
       # Hyprland session. This avoids a flaky VM path where SDDM login
       # succeeds but the Wayland user session exits immediately.
+      services.xserver.enable = lib.mkForce true;
       services.displayManager.sddm.wayland.enable = lib.mkForce false;
       programs.hyprland.withUWSM = lib.mkForce false;
 
