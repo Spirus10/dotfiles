@@ -20,8 +20,7 @@
         ESP = {
           priority = 1;
           name = "ESP";
-          start = "1M";
-          end = "513M";
+          size = "512M";
           type = "EF00";
           content = {
             type = "filesystem";
@@ -32,8 +31,7 @@
         };
         root = {
           name = "root";
-          start = "513M";
-          end = "100%";
+          size = "100%";
           content = {
             type = "filesystem";
             format = "ext4";
