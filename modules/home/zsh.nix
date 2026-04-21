@@ -147,12 +147,16 @@
         truncation_length  = 4;
         truncate_to_repo   = true;
       };
+      # oh-my-zsh robbyrussell: `git:(branch)` in blue, no branch icon.
+      # Inside `[...]`, parens render literally; outside starship would
+      # parse them as a conditional group.
       git_branch = {
-        style  = "fg:${theme.green.hex}";
-        symbol = " ";
+        format = "[git:($branch)]($style) ";
+        style  = "fg:${theme.blue.hex}";
       };
       git_status = {
-        style = "fg:${theme.amber.hex}";
+        format = "[$all_status$ahead_behind]($style) ";
+        style  = "fg:${theme.amber.hex}";
       };
       cmd_duration = {
         style    = "fg:${theme.comment.hex}";
