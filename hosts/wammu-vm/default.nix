@@ -59,9 +59,16 @@ nixosSystem {
       # VM rendering quirks: avoid hardware cursor paths and allow
       # wlroots to fall back to software rendering when virgl/GL isn't
       # available from the guest display stack.
+      #
+      # `LIBGL_ALWAYS_SOFTWARE=1` forces mesa to use llvmpipe. virtio-
+      # vga-gl advertises GL features it doesn't fully implement; GL-
+      # heavy clients like ghostty crash on their first frame. wlroots
+      # has a conservative fallback, so Hyprland itself survives
+      # without it — but child processes don't.
       environment.sessionVariables = {
-        WLR_NO_HARDWARE_CURSORS   = "1";
+        WLR_NO_HARDWARE_CURSORS     = "1";
         WLR_RENDERER_ALLOW_SOFTWARE = "1";
+        LIBGL_ALWAYS_SOFTWARE       = "1";
       };
 
       # Bare-metal Hyprland config pins DP-* outputs/workspaces, which
