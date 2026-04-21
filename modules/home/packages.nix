@@ -35,6 +35,9 @@
     # Pokemon greeter (used by zsh.nix on shell start)
     krabby
 
+    # Reverse Engineering
+    ghidra
+
     # `nh` — friendlier `nixos-rebuild` wrapper. Used by the `nhu`
     # alias and by the rebuild helper script added in Phase 7.
     nh
@@ -44,4 +47,5 @@
     # the flake input so the CLI version matches the NixOS module.
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
+
 }

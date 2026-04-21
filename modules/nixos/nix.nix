@@ -21,6 +21,10 @@
       ];
     };
 
+    extraOptions = ''
+	!include /var/lib/nix/access-tokens.conf
+    '';
+
     # Automatic garbage collection — keep the last 14 days.
     gc = {
       automatic = true;
