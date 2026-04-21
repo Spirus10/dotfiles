@@ -40,6 +40,14 @@
       # ---- zsh-syntax-highlighting styles ----------------------------
       # Each `fg=N` indexes the 0..15 Ghostty palette from theme.nix.
       # e.g. fg=5 = lavender, fg=13 = bright purple, fg=8 = gray.
+      #
+      # Declare the associative array ourselves — home-manager's init
+      # ordering doesn't guarantee zsh-syntax-highlighting (which does
+      # its own `typeset -A`) has sourced yet when this block runs. A
+      # bare `ARR[key]=v` without a prior declaration errors out with
+      # "assignment to invalid subscript range", killing every later
+      # assignment in the block.
+      typeset -gA ZSH_HIGHLIGHT_STYLES
       ZSH_HIGHLIGHT_STYLES[command]='fg=2,bold'
       ZSH_HIGHLIGHT_STYLES[builtin]='fg=10'
       ZSH_HIGHLIGHT_STYLES[function]='fg=2'

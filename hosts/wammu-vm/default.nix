@@ -88,6 +88,14 @@ nixosSystem {
         "$mainMod" = lib.mkForce "ALT";
       };
 
+      # mpvpaper runs mpv with a GL layer-shell surface. llvmpipe +
+      # software VP9 decode + Wayland layer-shell GL is one combination
+      # too many: mpv decodes fine but the compositor only ever sees
+      # black frames. Don't auto-start it in the VM; the real host has
+      # a GPU and renders the animated wallpaper without issue.
+      home-manager.users.wammu.systemd.user.services.mpvpaper.Install.WantedBy =
+        lib.mkForce [ ];
+
       # Throwaway credential. `hashedPassword = "!"` in users/wammu
       # locks the account; `initialPassword` needs `hashedPassword` null
       # to take effect, so force it.
