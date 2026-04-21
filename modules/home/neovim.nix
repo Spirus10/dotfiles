@@ -6,7 +6,7 @@ let
   };
 in
 {
-  imports = [ inputs.nixvim.homeManagerModules.nixvim ];
+  imports = [ inputs.nixvim.homeModules.nixvim ];
 
   programs.nixvim = {
     enable        = true;
@@ -153,14 +153,14 @@ in
 
       treesitter = {
         enable = true;
-        settings = {
-          highlight.enable = true;
-          indent.enable    = true;
-          # Grammars come from nixpkgs via nixvim's grammar packages.
-          # No runtime compilation, no tree-sitter CLI required.
-          auto_install     = false;
-        };
+        # Pin to the current plugin to avoid the legacy compatibility
+        # package path in newer nixpkgs releases.
+        package = pkgs.vimPlugins.nvim-treesitter;
+        highlight.enable = true;
+        indent.enable    = true;
       };
+
+      web-devicons.enable = true;
 
       fugitive.enable  = true;
       undotree.enable  = true;

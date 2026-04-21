@@ -42,6 +42,6 @@
     # agenix CLI — for editing secrets via `agenix -e <name>.age`.
     # Reads secrets/secrets.nix for the recipient map. Shipped via
     # the flake input so the CLI version matches the NixOS module.
-    inputs.agenix.packages.${pkgs.system}.default
+    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

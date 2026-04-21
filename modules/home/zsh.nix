@@ -1,8 +1,9 @@
-{ lib, pkgs, theme, ... }:
+{ config, lib, pkgs, theme, ... }:
 
 {
   programs.zsh = {
     enable                     = true;
+    dotDir                     = config.home.homeDirectory;
     autosuggestion.enable      = true;
     syntaxHighlighting.enable  = true;
     historySubstringSearch.enable = true;

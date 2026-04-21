@@ -38,7 +38,6 @@
 
     themes = {
       url = "github:RGBCube/ThemeNix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Lavender colorscheme for nvim — not packaged in nixpkgs, so we

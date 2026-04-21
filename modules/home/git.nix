@@ -2,13 +2,14 @@
 
 {
   programs.git = {
-    enable    = true;
-    userName  = "spirus10";
-    userEmail = "bailey.evanoff@gmail.com";
+    enable = true;
 
-    extraConfig = {
-      init.defaultBranch = "main";
-      pull.rebase        = true;
+    settings = {
+      user.name  = "spirus10";
+      user.email = "bailey.evanoff@gmail.com";
+
+      init.defaultBranch  = "main";
+      pull.rebase         = true;
       push.autoSetupRemote = true;
     };
   };

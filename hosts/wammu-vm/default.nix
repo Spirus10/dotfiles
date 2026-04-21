@@ -42,10 +42,20 @@ nixosSystem {
       # `virsh console wammu-vm` (or qemu `-serial stdio`) is usable.
       boot.kernelParams = [ "console=ttyS0,115200n8" "console=tty0" ];
 
-      # Hyprland + virtio-gpu dislikes hardware cursors. The same var
-      # lives in modules/nixos/nvidia.nix for real hardware; since we
-      # filter that module out for the VM, set it here.
-      environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
+      # VM rendering quirks: avoid hardware cursor paths and allow
+      # wlroots to fall back to software rendering when virgl/GL isn't
+      # available from the guest display stack.
+      environment.sessionVariables = {
+        WLR_NO_HARDWARE_CURSORS   = "1";
+        WLR_RENDERER_ALLOW_SOFTWARE = "1";
+      };
+
+      # Bare-metal Hyprland config pins DP-* outputs/workspaces, which
+      # don't exist in QEMU. Force VM-safe monitor/workspace defaults.
+      home-manager.users.wammu.wayland.windowManager.hyprland.settings = {
+        monitor = lib.mkForce [ ",preferred,auto,1" ];
+        workspace = lib.mkForce [ ];
+      };
 
       # Throwaway credential. `hashedPassword = "!"` in users/wammu
       # locks the account; `initialPassword` needs `hashedPassword` null
