@@ -23,7 +23,11 @@
       After       = [ "graphical-session.target" ];
     };
     Service = {
-      ExecStart = "${pkgs.awww}/bin/awww-daemon";
+      # `--no-cache --format xrgb` is a workaround for a regression in
+      # awww 0.12.0 (transitions.rs copy_from_slice panic on animated
+      # GIFs). See upstream issue #404. Remove once a newer release is
+      # in nixpkgs and the regression is fixed.
+      ExecStart = "${pkgs.awww}/bin/awww-daemon --no-cache --format xrgb";
       Restart   = "on-failure";
       RestartSec = 2;
     };
