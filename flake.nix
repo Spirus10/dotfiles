@@ -44,26 +44,21 @@
 
   outputs = inputs@{ self, nixpkgs, ... }:
     let
+      # Extend nixpkgs.lib with our own helpers (see ./lib). Everything
+      # downstream — including hosts — uses this extended lib.
       lib = nixpkgs.lib.extend (final: _prev: import ./lib { lib = final; });
 
-      # Every directory under ./hosts becomes a NixOS configuration.
-      # Each host's default.nix is a function that takes { inputs, lib } and
-      # returns a NixOS module (config).
-      mkHost = name:
-        lib.nixosSystem {
-          specialArgs = { inherit inputs self; };
-          modules = [
-            ./hosts/${name}
-            { networking.hostName = name; }
-          ];
-        };
+      # Each directory under ./hosts becomes a NixOS configuration. The
+      # host's default.nix is a function { inputs, lib } -> nixosConfiguration
+      # that returns a full `lib.nixosSystem { ... }` value.
+      hostDirs = lib.filterAttrs
+        (_: type: type == "directory")
+        (builtins.readDir ./hosts);
 
-      hosts = builtins.attrNames (
-        lib.filterAttrs (_: type: type == "directory") (builtins.readDir ./hosts)
-      );
+      mkHost = name: _type: import ./hosts/${name} { inherit inputs lib; };
     in
     {
-      nixosConfigurations = lib.genAttrs hosts mkHost;
+      nixosConfigurations = lib.mapAttrs mkHost hostDirs;
 
       inherit lib;
       inherit inputs;

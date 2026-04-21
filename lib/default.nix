@@ -1,19 +1,11 @@
 { lib }:
 
 {
-  # Return every .nix file directly under `dir` as an absolute path,
-  # excluding `default.nix` itself. Used by aggregator modules to
-  # auto-import every sibling file without listing them by hand.
+  # Recursively collect every .nix file under `dir`. Use with `remove` to
+  # filter the caller's own default.nix out, otherwise you'll infinite-loop:
   #
-  # Example: imports = lib.collectNix ./.;
+  #   imports = lib.collectNix ./. |> lib.remove ./default.nix;
   collectNix = dir:
-    let
-      entries = builtins.readDir dir;
-      isNix = name: type:
-        type == "regular"
-        && lib.hasSuffix ".nix" name
-        && name != "default.nix";
-      names = lib.attrNames (lib.filterAttrs isNix entries);
-    in
-    map (name: dir + "/${name}") names;
+    lib.filesystem.listFilesRecursive dir
+    |> builtins.filter (f: lib.hasSuffix ".nix" (toString f));
 }
