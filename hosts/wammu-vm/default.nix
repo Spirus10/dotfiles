@@ -66,9 +66,16 @@ nixosSystem {
 
       # Bare-metal Hyprland config pins DP-* outputs/workspaces, which
       # don't exist in QEMU. Force VM-safe monitor/workspace defaults.
+      #
+      # `$mainMod` is ALT inside the VM so binds don't collide with the
+      # host's Hyprland, which grabs SUPER before QEMU sees the keypress.
+      # Wayland compositors consume modifier keys before the focused
+      # client, so there's no "pass-through" option — swapping the mod
+      # in the guest is simpler than anything on the host side.
       home-manager.users.wammu.wayland.windowManager.hyprland.settings = {
         monitor = lib.mkForce [ ",preferred,auto,1" ];
         workspace = lib.mkForce [ ];
+        "$mainMod" = lib.mkForce "ALT";
       };
 
       # Throwaway credential. `hashedPassword = "!"` in users/wammu

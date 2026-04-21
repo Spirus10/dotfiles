@@ -12,7 +12,7 @@ Modes:
 
 Environment overrides:
   VM_NAME, QEMU_BIN, DISK, ISO, OVMF_CODE, OVMF_VARS,
-  MEM_MB, SMP, SSH_FWD_PORT
+  MEM_MB, SMP, SSH_FWD_PORT, VM_XRES, VM_YRES
 EOF
 }
 
@@ -39,6 +39,8 @@ OVMF_VARS="${OVMF_VARS:-./OVMF_VARS.fd}"
 MEM_MB="${MEM_MB:-8192}"
 SMP="${SMP:-4}"
 SSH_FWD_PORT="${SSH_FWD_PORT:-2222}"
+VM_XRES="${VM_XRES:-1920}"
+VM_YRES="${VM_YRES:-1080}"
 
 find_ovmf_vars_template() {
   local candidates=(
@@ -120,7 +122,7 @@ exec "$QEMU_BIN" \
   -device virtio-net-pci,netdev=net0 \
   -netdev "user,id=net0,hostfwd=tcp::${SSH_FWD_PORT}-:22" \
   -display gtk,gl=on,show-cursor=on \
-  -device virtio-vga-gl \
+  -device "virtio-vga-gl,xres=${VM_XRES},yres=${VM_YRES},edid=on" \
   -device virtio-tablet \
   -device virtio-keyboard \
   "$@"
