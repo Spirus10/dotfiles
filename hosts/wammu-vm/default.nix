@@ -80,7 +80,10 @@ nixosSystem {
       # client, so there's no "pass-through" option — swapping the mod
       # in the guest is simpler than anything on the host side.
       home-manager.users.wammu.wayland.windowManager.hyprland.settings = {
-        monitor = lib.mkForce [ ",preferred,auto,1" ];
+        # Pin an explicit mode. `preferred` delegates to the GL stack,
+        # and llvmpipe (LIBGL_ALWAYS_SOFTWARE=1) advertises a tiny
+        # default like 931x484. Force something usable.
+        monitor = lib.mkForce [ ",1920x1080@60,auto,1" ];
         workspace = lib.mkForce [ ];
         "$mainMod" = lib.mkForce "ALT";
       };
