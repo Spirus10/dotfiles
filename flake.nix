@@ -40,6 +40,13 @@
       url = "github:RGBCube/ThemeNix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Lavender colorscheme for nvim — not packaged in nixpkgs, so we
+    # pin the codeberg source and wrap it in pkgs/lavender-nvim.nix.
+    lavender-nvim = {
+      url = "git+https://codeberg.org/jthvai/lavender.nvim?ref=stable";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:
