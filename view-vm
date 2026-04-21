@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PORT="${1:-5930}"
+URL="spice://127.0.0.1:${PORT}"
+
+if command -v remote-viewer >/dev/null 2>&1; then
+  exec remote-viewer "$URL"
+fi
+
+if command -v virt-viewer >/dev/null 2>&1; then
+  exec virt-viewer --connect "$URL"
+fi
+
+echo "error: neither remote-viewer nor virt-viewer found in PATH" >&2
+exit 1

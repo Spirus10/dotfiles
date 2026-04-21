@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage: ./run-vm [install|normal|rescue] [-- extra qemu args...]
+
+Modes:
+  install  Boot from ISO first (for install/reinstall)
+  normal   Boot from disk (default)
+  rescue   Boot from ISO first (for password reset / rescue)
+
+Environment overrides:
+  VM_NAME, QEMU_BIN, DISK, ISO, OVMF_CODE, OVMF_VARS,
+  MEM_MB, SMP, SSH_FWD_PORT
+EOF
+}
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+MODE="${1:-normal}"
+if [[ "${1:-}" != "" ]]; then
+  shift
+fi
+
+if [[ "${1:-}" == "--" ]]; then
+  shift
+fi
+
+VM_NAME="${VM_NAME:-wammu-vm}"
+QEMU_BIN="${QEMU_BIN:-qemu-system-x86_64}"
+DISK="${DISK:-./disk.qcow2}"
+ISO="${ISO:-./latest-nixos-minimal-x86_64-linux.iso}"
+OVMF_CODE="${OVMF_CODE:-/usr/share/edk2-ovmf/x64/OVMF_CODE.4m.fd}"
+OVMF_VARS="${OVMF_VARS:-./OVMF_VARS.fd}"
+MEM_MB="${MEM_MB:-8192}"
+SMP="${SMP:-4}"
+SSH_FWD_PORT="${SSH_FWD_PORT:-2222}"
+
+find_ovmf_vars_template() {
+  local candidates=(
+    "/usr/share/edk2-ovmf/x64/OVMF_VARS.4m.fd"
+    "/usr/share/edk2-ovmf/x64/OVMF_VARS.fd"
+    "/usr/share/OVMF/OVMF_VARS.fd"
+    "/usr/share/OVMF/OVMF_VARS.4m.fd"
+  )
+  local p
+  for p in "${candidates[@]}"; do
+    if [[ -f "$p" ]]; then
+      printf '%s\n' "$p"
+      return 0
+    fi
+  done
+  return 1
+}
+
+if ! command -v "$QEMU_BIN" >/dev/null 2>&1; then
+  echo "error: qemu binary not found: $QEMU_BIN" >&2
+  exit 1
+fi
+
+if [[ ! -f "$DISK" ]]; then
+  echo "error: disk image not found: $DISK" >&2
+  exit 1
+fi
+
+if [[ ! -f "$OVMF_CODE" ]]; then
+  echo "error: OVMF code firmware not found: $OVMF_CODE" >&2
+  exit 1
+fi
+
+if [[ ! -f "$OVMF_VARS" ]]; then
+  tmpl="$(find_ovmf_vars_template || true)"
+  if [[ -z "${tmpl:-}" ]]; then
+    echo "error: OVMF vars file not found at $OVMF_VARS and no template discovered" >&2
+    exit 1
+  fi
+  cp "$tmpl" "$OVMF_VARS"
+  echo "created $OVMF_VARS from $tmpl"
+fi
+
+case "$MODE" in
+  install|rescue)
+    if [[ ! -f "$ISO" ]]; then
+      echo "error: ISO not found for mode '$MODE': $ISO" >&2
+      exit 1
+    fi
+    BOOT_ORDER="d"
+    CDROM_ARGS=(-cdrom "$ISO")
+    ;;
+  normal)
+    BOOT_ORDER="c"
+    CDROM_ARGS=()
+    ;;
+  *)
+    echo "error: unknown mode '$MODE'" >&2
+    usage
+    exit 1
+    ;;
+esac
+
+echo "starting $VM_NAME ($MODE)"
+echo "ssh:   ssh -p $SSH_FWD_PORT wammu@127.0.0.1"
+
+exec "$QEMU_BIN" \
+  -name "$VM_NAME" \
+  -enable-kvm \
+  -machine q35,accel=kvm \
+  -cpu host \
+  -smp "$SMP" \
+  -m "$MEM_MB" \
+  -drive if=pflash,format=raw,readonly=on,file="$OVMF_CODE" \
+  -drive if=pflash,format=raw,file="$OVMF_VARS" \
+  -drive file="$DISK",if=virtio,format=qcow2 \
+  "${CDROM_ARGS[@]}" \
+  -boot "order=$BOOT_ORDER" \
+  -device virtio-net-pci,netdev=net0 \
+  -netdev "user,id=net0,hostfwd=tcp::${SSH_FWD_PORT}-:22" \
+  -display gtk,gl=on,show-cursor=on \
+  -device virtio-vga-gl \
+  -device virtio-tablet \
+  -device virtio-keyboard \
+  "$@"

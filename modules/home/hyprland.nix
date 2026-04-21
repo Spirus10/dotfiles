@@ -129,10 +129,7 @@ in
         touchpad.natural_scroll = false;
       };
 
-      # windowrulev2 list form is universally supported across Hyprland
-      # versions; the newer `windowrule { ... }` block syntax is more
-      # finicky in home-manager's generator.
-      windowrulev2 = [
+      windowrule = [
         "bordercolor ${theme.purple.rgba "ff"} ${theme.bgAlt.rgba "ff"}, class:.*"
         "suppressevent maximize, class:.*"
         # Fix drag issues with empty-title xwayland floaters.

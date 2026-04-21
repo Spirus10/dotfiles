@@ -41,8 +41,15 @@ nixosSystem {
       # VM fallback: keep SDDM on X11 and bypass UWSM wrapper for the
       # Hyprland session. This avoids a flaky VM path where SDDM login
       # succeeds but the Wayland user session exits immediately.
+      #
+      # `defaultSession` is load-bearing: disabling `withUWSM` does NOT
+      # remove the `hyprland-uwsm.desktop` session file, and SDDM caches
+      # the last-picked session in /var/lib/sddm/state.conf — so without
+      # this, SDDM keeps launching uwsm, which then can't find its own
+      # systemd user units and bails with exit 5.
       services.xserver.enable = lib.mkForce true;
       services.displayManager.sddm.wayland.enable = lib.mkForce false;
+      services.displayManager.defaultSession = "hyprland";
       programs.hyprland.withUWSM = lib.mkForce false;
 
       # Route kernel messages to the emulated serial port so

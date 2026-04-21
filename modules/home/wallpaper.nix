@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  home.packages = [ pkgs.awww ];
+  home.packages = [ pkgs.swww ];
 
   # bg.gif lives in the repo so the wallpaper is reproducible — no
   # stashed ~/images/bg.gif reference like the Arch config had.
@@ -16,7 +16,7 @@
       After       = [ "graphical-session.target" ];
     };
     Service = {
-      ExecStart = "${pkgs.awww}/bin/swww-daemon";
+      ExecStart = "${pkgs.swww}/bin/swww-daemon";
       Restart   = "on-failure";
       RestartSec = 2;
     };
@@ -36,7 +36,7 @@
     };
     Service = {
       Type      = "oneshot";
-      ExecStart = "${pkgs.awww}/bin/swww img %h/.local/share/wallpapers/bg.gif --resize fit";
+      ExecStart = "${pkgs.swww}/bin/swww img %h/.local/share/wallpapers/bg.gif --resize fit";
     };
     Install.WantedBy = [ "graphical-session.target" ];
   };
