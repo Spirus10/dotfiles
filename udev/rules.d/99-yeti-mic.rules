@@ -1,1 +1,0 @@
-SUBSYSTEM=="sound", ATTRS{id}=="*Yeti*", TAG+="systemd", ENV{SYSTEMD_WANTS}="noisetorch-start.service"

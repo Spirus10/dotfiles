@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Tiny wrapper around `nh os switch .` so rebuilds are one word.
+#
+# `nh` is a friendlier `nixos-rebuild` — it handles sudo, shows a diff
+# of the new closure vs. the running one, and streams build logs. It's
+# installed via modules/home/packages.nix, so this script only works
+# once the first rebuild has landed.
+#
+# Pass through any extra args, e.g.:
+#   ./rebuild --dry
+#   ./rebuild --verbose
+set -euo pipefail
+exec nh os switch . "$@"

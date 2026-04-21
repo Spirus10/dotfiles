@@ -1,4 +1,0 @@
-alias ll='ls -la'
-alias ..='cd ..'
-alias v='nvim'
-alias psyu='sudo pacman -Syu'
