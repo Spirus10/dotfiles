@@ -12,32 +12,32 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "git+https://github.com/NixOS/nixpkgs?ref=nixos-unstable";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "git+https://github.com/NixOS/nixos-hardware?ref=master";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "git+https://github.com/nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim";
+      url = "git+https://github.com/nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {
-      url = "github:nix-community/disko";
+      url = "git+https://github.com/nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     agenix = {
-      url = "github:ryantm/agenix";
+      url = "git+https://github.com/ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     themes = {
-      url = "github:RGBCube/ThemeNix";
+      url = "git+https://github.com/RGBCube/ThemeNix";
     };
 
     # Lavender colorscheme for nvim — not packaged in nixpkgs, so we
