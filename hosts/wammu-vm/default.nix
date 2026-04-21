@@ -38,6 +38,12 @@ nixosSystem {
       services.qemuGuest.enable    = true;
       services.spice-vdagentd.enable = true;
 
+      # VM fallback: keep SDDM on X11 and bypass UWSM wrapper for the
+      # Hyprland session. This avoids a flaky VM path where SDDM login
+      # succeeds but the Wayland user session exits immediately.
+      services.displayManager.sddm.wayland.enable = lib.mkForce false;
+      programs.hyprland.withUWSM = lib.mkForce false;
+
       # Route kernel messages to the emulated serial port so
       # `virsh console wammu-vm` (or qemu `-serial stdio`) is usable.
       boot.kernelParams = [ "console=ttyS0,115200n8" "console=tty0" ];
