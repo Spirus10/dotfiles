@@ -132,9 +132,14 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
+      # oh-my-zsh (robbyrussell) layout: arrow + cwd + git on one
+      # line, prompt typed on the same line. Starship's default is
+      # two-line (`$line_break` before `$character`), which scatters
+      # the cwd above the cursor.
+      format = "$character $directory$git_branch$git_status$cmd_duration ";
       character = {
-        success_symbol = "[❯](bold fg:${theme.purple.hex})";
-        error_symbol   = "[❯](bold fg:${theme.red.hex})";
+        success_symbol = "[➜](bold fg:${theme.green.hex})";
+        error_symbol   = "[➜](bold fg:${theme.red.hex})";
         vimcmd_symbol  = "[❮](bold fg:${theme.green.hex})";
       };
       directory = {
