@@ -1,6 +1,11 @@
 { inputs, ... }:
 
 {
+  # 1password, Spotify, Discord, NVIDIA drivers — the usual suspects.
+  # Flip this off and every unfree package build fails, which surfaces
+  # what actually requires the allowlist.
+  nixpkgs.config.allowUnfree = true;
+
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
