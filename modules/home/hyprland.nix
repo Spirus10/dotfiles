@@ -42,8 +42,9 @@ in
         "HYPRCURSOR_SIZE,24"
       ];
 
-      # Quickshell (`qs`) and swww are added in Phase 4 via their own
-      # home modules. Keep this minimal for now — just clipboard.
+      # Quickshell (`qs`) and mpvpaper are started by their own
+      # systemd user units (see quickshell.nix, wallpaper.nix). All
+      # that lives here is the cliphist watcher pair.
       exec-once = [
         "wl-paste --type text  --watch cliphist store"
         "wl-paste --type image --watch cliphist store"

@@ -50,7 +50,7 @@ modules/
     ghostty.nix          terminal settings + inline theme
     zsh.nix              shell + aliases + starship
     neovim.nix           nixvim: plugins, LSP, keymaps
-    wallpaper.nix        swww daemon + bg.gif
+    wallpaper.nix        mpvpaper (mpv-as-layer-shell) + bg.webm
     git.nix              programs.git
     xdg.nix              default apps + user dirs
     packages.nix         user-scope apps (firefox, 1password, ...)
@@ -60,7 +60,7 @@ secrets/
   secrets.nix            agenix recipient map (CLI-side, no NixOS import)
   *.age                  encrypted payloads (commit the ciphertext)
 assets/
-  bg.gif                 wallpaper
+  bg.webm                wallpaper (VP9, short loop)
   quickshell/shell.qml   bar/launcher/clipboard UI
 rebuild                  tiny wrapper around `nh os switch .`
 ```

@@ -1,56 +1,31 @@
 { pkgs, ... }:
 
 {
-  home.packages = [ pkgs.awww ];
+  home.packages = [ pkgs.mpvpaper ];
 
-  # bg.gif lives in the repo so the wallpaper is reproducible — no
-  # stashed ~/images/bg.gif reference like the Arch config had.
-  #
-  # The asset is intentionally coalesced (`magick src.gif -coalesce`),
-  # not delta-compressed. awww 0.12.0 panics in the transition animator
-  # if consecutive frames have different dimensions — which delta GIFs
-  # have by design. Keep all frames at the full 1920x1080 or awww dies.
-  xdg.dataFile."wallpapers/bg.gif".source = ../../assets/bg.gif;
+  # Animated wallpaper via mpvpaper (mpv-as-layer-shell). Previous
+  # attempt used awww, but awww 0.12.0 regressed issue #404 — the
+  # transition animator panics on every animated GIF. mpvpaper uses
+  # mpv's real video pipeline instead, so format/codec/timing/looping
+  # are all handled by code that's been solid for decades.
+  xdg.dataFile."wallpapers/bg.webm".source = ../../assets/bg.webm;
 
-  # Daemon: long-running wayland wallpaper process. Wanted-by the
-  # graphical session so it comes up with Hyprland and dies with it.
+  # One long-running unit: mpvpaper keeps an mpv instance alive that
+  # paints the wallpaper surface. No daemon+one-shot dance — starting
+  # the unit IS starting playback, stopping it tears mpv down.
   #
-  # `awww` is the renamed swww upstream; `pkgs.swww` is a nixpkgs alias.
-  systemd.user.services.awww-daemon = {
+  #   -o "loop-file=inf --no-audio"  mpv options: infinite loop, mute
+  #   '*'                            apply to all outputs
+  systemd.user.services.mpvpaper = {
     Unit = {
-      Description = "awww wayland wallpaper daemon";
+      Description = "Animated wallpaper via mpvpaper";
       PartOf      = [ "graphical-session.target" ];
       After       = [ "graphical-session.target" ];
     };
     Service = {
-      # `--no-cache --format xrgb` is a workaround for a regression in
-      # awww 0.12.0 (transitions.rs copy_from_slice panic on animated
-      # GIFs). See upstream issue #404. Remove once a newer release is
-      # in nixpkgs and the regression is fixed.
-      ExecStart = "${pkgs.awww}/bin/awww-daemon --no-cache --format xrgb";
+      ExecStart = ''${pkgs.mpvpaper}/bin/mpvpaper -o "loop-file=inf --no-audio" '*' %h/.local/share/wallpapers/bg.webm'';
       Restart   = "on-failure";
       RestartSec = 2;
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-  };
-
-  # Oneshot that applies the wallpaper once the daemon is up. Split
-  # into its own unit so restarts of the daemon don't re-trigger a
-  # setwallpaper, and `systemctl --user restart awww-wallpaper`
-  # reapplies it without touching the daemon.
-  systemd.user.services.awww-wallpaper = {
-    Unit = {
-      Description = "Apply the current wallpaper via awww";
-      Requires    = [ "awww-daemon.service" ];
-      After       = [ "awww-daemon.service" ];
-      PartOf      = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type      = "oneshot";
-      # `--transition-type none` matters: awww's default transition
-      # (a wipe at a 45° angle) can stall mid-animation on virgl/VM GL
-      # paths and freeze the wallpaper in a half-wiped, diagonal state.
-      ExecStart = "${pkgs.awww}/bin/awww img %h/.local/share/wallpapers/bg.gif --resize fit --transition-type none";
     };
     Install.WantedBy = [ "graphical-session.target" ];
   };
