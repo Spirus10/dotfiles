@@ -1,0 +1,11 @@
+singleton Theme 1.0 Theme.qml
+Bar 1.0 Bar.qml
+BarChrome 1.0 BarChrome.qml
+PixelFrame 1.0 PixelFrame.qml
+Sparkle 1.0 Sparkle.qml
+Workspaces 1.0 Workspaces.qml
+MediaPlayer 1.0 MediaPlayer.qml
+VolumeIndicator 1.0 VolumeIndicator.qml
+Clock 1.0 Clock.qml
+Launcher 1.0 Launcher.qml
+Clipboard 1.0 Clipboard.qml

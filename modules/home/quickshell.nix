@@ -3,10 +3,10 @@
 {
   home.packages = [ pkgs.quickshell ];
 
-  # Single-file shell. Kept verbatim in assets/ so it remains diffable
+  # Multi-file shell. Kept verbatim in assets/ so it remains diffable
   # against upstream QML tooling; theming lands later by threading the
   # lavender palette into a pragma-prepended copy.
-  xdg.configFile."quickshell/shell.qml".source = ../../assets/quickshell/shell.qml;
+  xdg.configFile."quickshell".source = ../../assets/quickshell;
 
   # systemd user unit so the shell follows graphical-session.target —
   # same lifecycle as Hyprland, no `exec-once` bookkeeping, restart
