@@ -9,6 +9,7 @@
   procps,
   wayland,
   wayland-protocols,
+  wayland-scanner,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -24,6 +25,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     wayland
     wayland-protocols
+    wayland-scanner
   ];
 
   buildInputs = [
