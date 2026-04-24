@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
   postPatch = ''
     substituteInPlace daemon/build.rs \
       --replace-fail "WaylandProtocol::Client," \
-        'WaylandProtocol::Local(PathBuf::from("${wayland}/share/wayland/wayland.xml")),'
+        'WaylandProtocol::Local(PathBuf::from("${wayland.dev}/share/wayland/wayland.xml")),'
   '';
 
   postInstall = ''
