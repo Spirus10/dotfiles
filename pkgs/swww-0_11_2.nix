@@ -35,13 +35,10 @@ rustPlatform.buildRustPackage rec {
     wayland-protocols
   ];
 
-  env = {
-    WAYLAND_CLIENT_PKGDATADIR = "${wayland}/share/wayland";
-    WAYLAND_SCANNER_PKGDATADIR = "${wayland}/share/wayland";
-  };
-
-  preBuild = ''
-    export PKG_CONFIG_PATH="${wayland.dev}/lib/pkgconfig:${wayland-scanner}/lib/pkgconfig:$PKG_CONFIG_PATH"
+  postPatch = ''
+    substituteInPlace daemon/build.rs \
+      --replace-fail "WaylandProtocol::Client," \
+        'WaylandProtocol::Local(PathBuf::from("${wayland}/share/wayland/wayland.xml")),'
   '';
 
   postInstall = ''
