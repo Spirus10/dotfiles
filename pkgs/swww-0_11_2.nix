@@ -22,6 +22,8 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [
     makeWrapper
     pkg-config
+    wayland
+    wayland-protocols
   ];
 
   buildInputs = [
