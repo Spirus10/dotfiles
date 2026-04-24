@@ -5,6 +5,9 @@
 
 let
   inherit (lib) collectNix;
+  swwwPkgs = import inputs.nixpkgs-swww {
+    inherit (pkgs) system;
+  };
 in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
@@ -47,7 +50,10 @@ in
     # aborting the switch. Saves the usual "existing file at ..." dance.
     backupFileExtension = "hm-bak";
 
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = {
+      inherit inputs;
+      inherit (swwwPkgs) swww;
+    };
 
     users.wammu = {
       imports = collectNix ../../modules/home;
