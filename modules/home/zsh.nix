@@ -153,14 +153,15 @@
       # them as conditional groups and eats them. Three styled groups
       # let us give the wrapper and the branch different colors.
       git_branch = {
-        format = "[git:\\(]($style)[$branch](bold fg:${theme.red.hex})[\\)]($style) ";
+        format = " [git:\\(]($style)[$branch](bold fg:${theme.red.hex})[\\)]($style)";
         style  = "fg:${theme.cyan.hex}";
       };
       git_status = {
-        format = "[$all_status$ahead_behind]($style) ";
+        format = " [$all_status$ahead_behind]($style)";
         style  = "fg:${theme.amber.hex}";
       };
       cmd_duration = {
+        format   = " [$duration]($style)";
         style    = "fg:${theme.comment.hex}";
         min_time = 2000;
       };
