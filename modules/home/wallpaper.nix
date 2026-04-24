@@ -21,14 +21,14 @@
   systemd.user.services.mpvpaper = {
     Unit = {
       Description = "Animated wallpaper via mpvpaper";
-      PartOf      = [ "graphical-session.target" ];
-      After       = [ "graphical-session.target" ];
+      PartOf      = [ "graphical-session.target" "hyprland-session.target" ];
+      After       = [ "hyprland-session.target" ];
     };
     Service = {
       ExecStart = ''${pkgs.mpvpaper}/bin/mpvpaper -o "loop-file=inf loop-playlist=inf keep-open=always no-audio hwdec=no" ALL %h/.local/share/wallpapers/bg.webm'';
-      Restart   = "on-failure";
+      Restart   = "always";
       RestartSec = 2;
     };
-    Install.WantedBy = [ "graphical-session.target" ];
+    Install.WantedBy = [ "hyprland-session.target" ];
   };
 }

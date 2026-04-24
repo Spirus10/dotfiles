@@ -143,6 +143,7 @@
         vimcmd_symbol  = "[❮](bold fg:${theme.green.hex})";
       };
       directory = {
+        format             = "[$path]($style)[$read_only]($read_only_style)";
         style              = "bold fg:${theme.purple.hex}";
         truncation_length  = 4;
         truncate_to_repo   = true;
