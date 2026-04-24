@@ -1,6 +1,10 @@
-{ lib, theme, ... }:
+{ inputs, lib, pkgs, theme, ... }:
 
 let
+  swww = pkgs.callPackage ../../pkgs/swww-0_11_2.nix {
+    swwwSrc = inputs.swww-0_11_2;
+  };
+
   # Generate "SUPER, <n>, workspace, <n>" (and the SHIFT variant) for
   # the 1..9,0 -> 1..9,10 workspace map. Matches the Arch conf without
   # ten near-identical lines.
@@ -43,13 +47,12 @@ in
         "HYPRCURSOR_SIZE,24"
       ];
 
-      # Quickshell (`qs`) and mpvpaper are started by their own
-      # systemd user units (see quickshell.nix, wallpaper.nix). mpvpaper
-      # is triggered from Hyprland after outputs settle; starting it as
-      # soon as hyprland-session.target is reached can leave a black layer
-      # in software-rendered VMs.
+      # Quickshell (`qs`) is started by its own systemd user unit. The
+      # animated wallpaper uses pinned swww 0.11.2 here because awww 0.12
+      # regressed GIF rendering, and mpvpaper paints black in the VM.
       exec-once = [
-        "sh -c 'sleep 2; systemctl --user restart mpvpaper.service'"
+        "${swww}/bin/swww-daemon"
+        "${swww}/bin/swww img $HOME/.local/share/wallpapers/bg.gif --resize fit"
         "wl-paste --type text  --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
       ];

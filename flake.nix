@@ -46,6 +46,14 @@
       url = "git+https://codeberg.org/jthvai/lavender.nvim?ref=stable";
       flake = false;
     };
+
+    # Last pre-awww rewrite release. awww 0.12.0 currently regresses
+    # animated GIF rendering, so keep the old swww daemon pinned locally
+    # instead of depending on nixpkgs' renamed package.
+    swww-0_11_2 = {
+      url = "github:LGFae/swww/v0.11.2";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:

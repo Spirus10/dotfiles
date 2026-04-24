@@ -1,0 +1,46 @@
+{
+  lib,
+  rustPlatform,
+  swwwSrc,
+  libxkbcommon,
+  lz4,
+  makeWrapper,
+  pkg-config,
+  procps,
+  wayland,
+  wayland-protocols,
+}:
+
+rustPlatform.buildRustPackage rec {
+  pname = "swww";
+  version = "0.11.2";
+
+  src = swwwSrc;
+
+  cargoLock.lockFile = "${src}/Cargo.lock";
+
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
+
+  buildInputs = [
+    libxkbcommon
+    lz4
+    wayland
+    wayland-protocols
+  ];
+
+  postInstall = ''
+    wrapProgram "$out/bin/swww" \
+      --prefix PATH : ${lib.makeBinPath [ procps ]}
+  '';
+
+  meta = {
+    description = "Efficient animated wallpaper daemon for Wayland";
+    homepage = "https://github.com/LGFae/swww";
+    license = lib.licenses.gpl3Only;
+    mainProgram = "swww";
+    platforms = lib.platforms.linux;
+  };
+}

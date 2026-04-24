@@ -50,17 +50,19 @@ modules/
     ghostty.nix          terminal settings + inline theme
     zsh.nix              shell + aliases + starship
     neovim.nix           nixvim: plugins, LSP, keymaps
-    wallpaper.nix        mpvpaper (mpv-as-layer-shell) + bg.webm
+    wallpaper.nix        pinned swww 0.11.2 + bg.gif
     git.nix              programs.git
     xdg.nix              default apps + user dirs
     packages.nix         user-scope apps (firefox, 1password, ...)
 pkgs/
   lavender-nvim.nix      buildVimPlugin wrapper (not in nixpkgs)
+  swww-0_11_2.nix        pinned pre-awww animated wallpaper daemon
 secrets/
   secrets.nix            agenix recipient map (CLI-side, no NixOS import)
   *.age                  encrypted payloads (commit the ciphertext)
 assets/
-  bg.webm                wallpaper (VP9, short loop)
+  bg.gif                 wallpaper (animated GIF loop)
+  bg.webm                old mpvpaper conversion, currently unused
   quickshell/shell.qml   bar/launcher/clipboard UI
 rebuild                  tiny wrapper around `nh os switch .`
 ```
