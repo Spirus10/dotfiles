@@ -18,6 +18,10 @@
   # `ALL` is mpvpaper's documented selector for painting every output.
   # Keep both file and playlist loops enabled so EOF cannot tear down the
   # layer if mpvpaper/mpv treats the single wallpaper as a one-item list.
+  # The unit is intentionally not WantedBy hyprland-session.target. Hyprland
+  # starts it from exec-once after a short delay, which avoids a cold-login
+  # race where mpvpaper creates a valid layer surface before the VM output is
+  # ready to paint video frames.
   systemd.user.services.mpvpaper = {
     Unit = {
       Description = "Animated wallpaper via mpvpaper";
@@ -29,6 +33,5 @@
       Restart   = "always";
       RestartSec = 2;
     };
-    Install.WantedBy = [ "hyprland-session.target" ];
   };
 }

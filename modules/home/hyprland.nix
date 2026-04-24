@@ -44,9 +44,12 @@ in
       ];
 
       # Quickshell (`qs`) and mpvpaper are started by their own
-      # systemd user units (see quickshell.nix, wallpaper.nix). All
-      # that lives here is the cliphist watcher pair.
+      # systemd user units (see quickshell.nix, wallpaper.nix). mpvpaper
+      # is triggered from Hyprland after outputs settle; starting it as
+      # soon as hyprland-session.target is reached can leave a black layer
+      # in software-rendered VMs.
       exec-once = [
+        "sh -c 'sleep 2; systemctl --user restart mpvpaper.service'"
         "wl-paste --type text  --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
       ];
