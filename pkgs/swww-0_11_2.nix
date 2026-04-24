@@ -35,6 +35,15 @@ rustPlatform.buildRustPackage rec {
     wayland-protocols
   ];
 
+  env = {
+    WAYLAND_CLIENT_PKGDATADIR = "${wayland}/share/wayland";
+    WAYLAND_SCANNER_PKGDATADIR = "${wayland}/share/wayland";
+  };
+
+  preBuild = ''
+    export PKG_CONFIG_PATH="${wayland.dev}/lib/pkgconfig:${wayland-scanner}/lib/pkgconfig:$PKG_CONFIG_PATH"
+  '';
+
   postInstall = ''
     wrapProgram "$out/bin/swww" \
       --prefix PATH : ${lib.makeBinPath [ procps ]}
