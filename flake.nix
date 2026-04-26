@@ -14,11 +14,6 @@
   inputs = {
     nixpkgs.url = "git+https://github.com/NixOS/nixpkgs?ref=nixos-unstable";
 
-    # Old nixpkgs package set used only for pre-awww swww. The flake
-    # lock pins the exact revision; this branch just gives us a stable
-    # package expression that predates the awww GIF regression.
-    nixpkgs-swww.url = "github:NixOS/nixpkgs/nixos-25.05";
-
     nixos-hardware.url = "git+https://github.com/NixOS/nixos-hardware?ref=master";
 
     home-manager = {

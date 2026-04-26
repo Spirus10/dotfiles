@@ -5,9 +5,6 @@
 
 let
   inherit (lib) collectNix;
-  swwwPkgs = import inputs.nixpkgs-swww {
-    inherit (pkgs) system;
-  };
 in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
@@ -52,7 +49,7 @@ in
 
     extraSpecialArgs = {
       inherit inputs;
-      inherit (swwwPkgs) swww;
+      inherit (pkgs) awww;
     };
 
     users.wammu = {

@@ -1,4 +1,4 @@
-{ lib, swww, theme, ... }:
+{ awww, lib, theme, ... }:
 
 let
   # Generate "SUPER, <n>, workspace, <n>" (and the SHIFT variant) for
@@ -43,13 +43,10 @@ in
         "XCURSOR_SIZE,24"
       ];
 
-      # Quickshell (`qs`) is started by its own systemd user unit. The
-      # animated wallpaper uses nixpkgs 25.05's pre-awww swww package:
-      # awww 0.12 regressed GIF rendering, and mpvpaper paints black in
-      # the VM.
+      # Quickshell (`qs`) is started by its own systemd user unit.
       exec-once = [
-        "${swww}/bin/swww-daemon"
-        "${swww}/bin/swww img $HOME/.local/share/wallpapers/bg.gif --resize fit"
+        "${awww}/bin/awww-daemon"
+        "${awww}/bin/awww img $HOME/.local/share/wallpapers/bg.gif --resize stretch"
         "wl-paste --type text  --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
       ];

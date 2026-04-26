@@ -50,7 +50,7 @@ modules/
     ghostty.nix          terminal settings + inline theme
     zsh.nix              shell + aliases + starship
     neovim.nix           nixvim: plugins, LSP, keymaps
-    wallpaper.nix        pre-awww swww from nixpkgs 25.05 + bg.gif
+    wallpaper.nix        awww animated wallpaper + bg.gif
     git.nix              programs.git
     xdg.nix              default apps + user dirs
     packages.nix         user-scope apps (firefox, 1password, ...)
