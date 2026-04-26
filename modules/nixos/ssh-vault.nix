@@ -35,8 +35,15 @@ in
     script = ''
       test -f ${imgFile}
 
-      cryptsetup luksOpen ${imgFile} ${mapperName}
-      mount /dev/mapper/${mapperName} ${mountDir}
+      if [ ! -e /dev/mapper/${mapperName} ]; then
+        systemd-ask-password "SSH key vault passphrase:" \
+          | cryptsetup luksOpen ${imgFile} ${mapperName}
+      fi
+
+      if ! mountpoint -q ${mountDir}; then
+        mount /dev/mapper/${mapperName} ${mountDir}
+      fi
+
       chown -R ${user}:${group} ${mountDir}
       chmod 700 ${mountDir}
       find ${mountDir} -type f -exec chmod 600 {} +

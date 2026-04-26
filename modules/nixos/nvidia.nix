@@ -26,6 +26,10 @@
 
   # Wayland / Hyprland compatibility env.
   environment.sessionVariables = {
+    # card1 is the RTX 5080 with the connected DP outputs on this host;
+    # card2 is the Ryzen iGPU with no connected physical outputs.
+    AQ_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card2";
+    WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card2";
     GBM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     LIBVA_DRIVER_NAME = "nvidia";

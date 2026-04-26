@@ -15,5 +15,6 @@
     tree
     usbutils    # lsusb
     wget
+    p7zip
   ];
 }

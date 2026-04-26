@@ -25,22 +25,22 @@ in
       "$passManager" = "1password";
 
       monitor = [
-        "DP-1,2560x1440_135.00,0x0,auto"
-        "DP-2,preferred,2560x0,auto"
-        "DP-3,preferred,-1080x0,auto,transform,3"
+        "DP-5,preferred,0x0,auto"
+        "DP-3,preferred,2560x0,auto"
+        "DP-4,preferred,-1080x0,auto,transform,3"
       ];
 
       workspace = [
-        "1,monitor:DP-2"
-        "2,monitor:DP-3"
-        "3,monitor:DP-1"
+        "1,monitor:DP-4"
+        "2,monitor:DP-5"
+        "3,monitor:DP-3"
       ];
 
       env = [
         "GTK_THEME,Adwaita:dark"
         "QT_QPA_PLATFORMTHEME,qt6ct"
+        "XCURSOR_THEME,Adwaita"
         "XCURSOR_SIZE,24"
-        "HYPRCURSOR_SIZE,24"
       ];
 
       # Quickshell (`qs`) is started by its own systemd user unit. The
@@ -65,7 +65,10 @@ in
         layout                = "dwindle";
       };
 
-      cursor.inactive_timeout = 0;
+      cursor = {
+        enable_hyprcursor = false;
+        inactive_timeout  = 0;
+      };
 
       decoration = {
         rounding        = 10;
