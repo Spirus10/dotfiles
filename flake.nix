@@ -47,6 +47,11 @@
       flake = false;
     };
 
+    future-cyan-hyprcursor = {
+      url = "git+https://gitlab.com/Pummelfisch/future-cyan-hyprcursor";
+      flake = false;
+    };
+
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:

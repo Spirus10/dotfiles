@@ -86,6 +86,22 @@
         "type": "github"
       }
     },
+    "future-cyan-hyprcursor": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1759689263,
+        "narHash": "sha256-a7LdP2VH0UlMPwW9vbBolOuPQMJa0WNpmJfLLv3JZ4g=",
+        "ref": "refs/heads/main",
+        "rev": "cf4126d17f4520aceb688d8a60daca4a1f0b9e80",
+        "revCount": 15,
+        "type": "git",
+        "url": "https://gitlab.com/Pummelfisch/future-cyan-hyprcursor"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gitlab.com/Pummelfisch/future-cyan-hyprcursor"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -202,6 +218,7 @@
       "inputs": {
         "agenix": "agenix",
         "disko": "disko",
+        "future-cyan-hyprcursor": "future-cyan-hyprcursor",
         "home-manager": "home-manager_2",
         "lavender-nvim": "lavender-nvim",
         "nixos-hardware": "nixos-hardware",

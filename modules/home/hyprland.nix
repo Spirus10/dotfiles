@@ -1,4 +1,4 @@
-{ awww, lib, theme, ... }:
+{ awww, inputs, lib, theme, ... }:
 
 let
   # Generate "SUPER, <n>, workspace, <n>" (and the SHIFT variant) for
@@ -12,6 +12,9 @@ let
     ++ map (k: "$mainMod SHIFT, ${k}, movetoworkspace, ${wsFor k}") wsKeys;
 in
 {
+  xdg.dataFile."icons/Future-Cyan".source =
+    "${inputs.future-cyan-hyprcursor}/Future-Cyan-Hyprcursor_Theme";
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -39,8 +42,10 @@ in
       env = [
         "GTK_THEME,Adwaita:dark"
         "QT_QPA_PLATFORMTHEME,qt6ct"
-        "XCURSOR_THEME,Adwaita"
+        "XCURSOR_THEME,Future-Cyan"
         "XCURSOR_SIZE,24"
+        "HYPRCURSOR_THEME,Future-Cyan"
+        "HYPRCURSOR_SIZE,24"
       ];
 
       # Quickshell (`qs`) is started by its own systemd user unit.
@@ -63,7 +68,7 @@ in
       };
 
       cursor = {
-        enable_hyprcursor = false;
+        enable_hyprcursor = true;
         inactive_timeout  = 0;
       };
 

@@ -11,6 +11,9 @@
     spotify
     obsidian
 
+    # Dumb stuff
+    microfetch
+
     # Password manager
     _1password-gui
     _1password-cli
