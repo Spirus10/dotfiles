@@ -45,7 +45,10 @@ in
       ];
 
       env = [
-        "GTK_THEME,Adwaita:dark"
+        # No GTK_THEME here on purpose — it's a GTK3-only debug override
+        # that bypasses settings.ini and is invisible to the appearance
+        # portal, so it never reached Firefox. Dark mode is configured
+        # properly in gtk.nix instead.
         "QT_QPA_PLATFORMTHEME,qt6ct"
         "XCURSOR_THEME,Future-Cyan"
         "XCURSOR_SIZE,24"
