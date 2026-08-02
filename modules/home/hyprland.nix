@@ -1,4 +1,4 @@
-{ awww, inputs, lib, theme, ... }:
+{ inputs, lib, theme, ... }:
 
 let
   # Generate "SUPER, <n>, workspace, <n>" (and the SHIFT variant) for
@@ -19,6 +19,11 @@ in
     enable = true;
     xwayland.enable = true;
     systemd.enable = true;
+
+    # Upstream's default flipped to "lua" for stateVersion >= 26.05. We
+    # only still get "hyprlang" implicitly via our 25.11 stateVersion —
+    # pin it so bumping stateVersion doesn't silently swap the backend.
+    configType = "hyprlang";
 
     settings = {
       "$mainMod"     = "SUPER";
@@ -48,10 +53,9 @@ in
         "HYPRCURSOR_SIZE,24"
       ];
 
-      # Quickshell (`qs`) is started by its own systemd user unit.
+      # Quickshell (`qs`) and awww both run as their own systemd user
+      # units — see quickshell.nix and wallpaper.nix.
       exec-once = [
-        "${awww}/bin/awww-daemon"
-        "${awww}/bin/awww img $HOME/.local/share/wallpapers/bg.gif --resize stretch"
         "wl-paste --type text  --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
       ];
@@ -121,7 +125,6 @@ in
       };
 
       dwindle = {
-        pseudotile      = true;
         preserve_split  = true;
       };
 
@@ -172,7 +175,7 @@ in
         "$mainMod, Q, killactive"
         "$mainMod, M, exit"
         "$mainMod, F, fullscreen"
-        "$mainMod, J, togglesplit"
+        "$mainMod, J, layoutmsg, togglesplit"
 
         # Quickshell IPC — launcher, media, clipboard all handled by
         # the `qs` daemon (modules/home/quickshell.nix). Mapped IPC
