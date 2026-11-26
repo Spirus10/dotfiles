@@ -28,6 +28,7 @@ PanelWindow {
     // Sits inside the chrome; each PixelFrame is a dark "pocket" cut into
     // the bar. Sparkles between segments keep the bar material visible.
     RowLayout {
+        id: barRow
         anchors.fill: chrome
         anchors.margins: Theme.frameBorder + 3
         spacing: 0
@@ -78,6 +79,7 @@ PanelWindow {
             VolumeIndicator {
                 id: volumeContent
                 anchors.centerIn: parent
+                onMixerToggled: mixerLoader.active = !mixerLoader.active
             }
         }
 
@@ -94,6 +96,21 @@ PanelWindow {
                 id: clockContent
                 anchors.centerIn: parent
             }
+        }
+    }
+
+    // --- volume mixer ----------------------------------------------------
+    // Only instantiated while open, so its pipewire trackers and peak
+    // monitors don't run in the background. Lives on this bar's screen and
+    // hangs from the right edge of the volume pocket.
+    LazyLoader {
+        id: mixerLoader
+        active: false
+
+        VolumeMixer {
+            screen: bar.screen
+            anchorRightMargin: bar.width - (barRow.x + volumeFrame.x + volumeFrame.width)
+            onDismissed: mixerLoader.active = false
         }
     }
 }

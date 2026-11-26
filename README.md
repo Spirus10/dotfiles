@@ -7,7 +7,7 @@ in this repo.
 
 - **Channel**: `nixpkgs` unstable, pinned by `flake.lock`
 - **GPU**: NVIDIA (`hardware.nvidia` with `nvidia-open`)
-- **Desktop**: Hyprland + Quickshell (bar + launcher + clipboard), SDDM login
+- **Desktop**: Hyprland + Quickshell (bar + launcher + clipboard + volume mixer), SDDM login
 - **Editor**: Neovim via `nixvim` — declarative plugins, LSP, keymaps
 - **Shell**: `zsh` with native plugins + starship
 - **Secrets**: `agenix`
@@ -35,12 +35,12 @@ modules/
     boot.nix             systemd-boot + kernel
     nvidia.nix           driver + modeset + env vars
     desktop.nix          hyprland, portals, SDDM
-    audio.nix            pipewire + wireplumber
+    audio.nix            pipewire + wireplumber, mic gain + RNNoise chain
     networking.nix       NetworkManager, tailscaled, firewall
     fonts.nix            nerd-fonts + noto + liberation
     keyd.nix             capslock → meta
-    udev.nix             logitech + yeti rules
-    services.nix         openssh, solaar, noisetorch
+    udev.nix             logitech rules
+    services.nix         openssh, solaar
     packages.nix         system-wide CLI (git, curl, rsync, ...)
   home/                  USER scope — $HOME config, per-user packages
     default.nix          aggregator imported by users/wammu
@@ -62,7 +62,8 @@ secrets/
 assets/
   bg.gif                 wallpaper (animated GIF loop)
   bg.webm                old mpvpaper conversion, currently unused
-  quickshell/shell.qml   bar/launcher/clipboard UI
+  quickshell/            bar, launcher, clipboard, volume mixer (qmldir
+                         registers every component — add new .qml there)
 rebuild                  tiny wrapper around `nh os switch .`
 ```
 

@@ -11,7 +11,7 @@ in
   programs.nixvim = {
     enable        = true;
     defaultEditor = true;
-
+    nixpkgs.useGlobalPackages = true;
     # Lavender is not a built-in nixvim colorscheme, so bring it in as
     # an extraPlugin and trigger the :colorscheme command explicitly.
     extraPlugins = [ lavender-nvim ];

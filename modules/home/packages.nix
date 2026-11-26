@@ -27,6 +27,7 @@
     swappy
     brightnessctl
     playerctl
+    pavucontrol     # per-app output routing / device picker
 
     # Shell QoL
     bat

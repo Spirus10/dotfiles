@@ -6,6 +6,10 @@ Sparkle 1.0 Sparkle.qml
 Workspaces 1.0 Workspaces.qml
 MediaPlayer 1.0 MediaPlayer.qml
 VolumeIndicator 1.0 VolumeIndicator.qml
+VolumeMixer 1.0 VolumeMixer.qml
+DevicePicker 1.0 DevicePicker.qml
+PixelSlider 1.0 PixelSlider.qml
+PeakMeter 1.0 PeakMeter.qml
 Clock 1.0 Clock.qml
 Launcher 1.0 Launcher.qml
 Clipboard 1.0 Clipboard.qml

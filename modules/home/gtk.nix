@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   # `colorScheme = "dark"` is the load-bearing line. Besides setting
@@ -12,7 +12,7 @@
   gtk = {
     enable      = true;
     colorScheme = "dark";
-
+    gtk4.theme = config.gtk.theme;
     theme = {
       name    = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;

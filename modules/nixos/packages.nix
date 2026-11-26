@@ -16,5 +16,10 @@
     usbutils    # lsusb
     wget
     p7zip
+    _7zz
+    file
+    wineWowPackages.stable
+    winetricks
+    claude-code
   ];
 }

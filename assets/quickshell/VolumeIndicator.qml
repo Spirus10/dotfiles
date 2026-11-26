@@ -7,6 +7,9 @@ import Quickshell.Services.Pipewire
 Item {
     id: root
 
+    // Right-click opens the full mixer; the Bar owns that window.
+    signal mixerToggled()
+
     readonly property var sink: Pipewire.defaultAudioSink
     readonly property real volume: sink && sink.audio ? sink.audio.volume : 0
     readonly property bool muted: sink && sink.audio ? sink.audio.muted : false
@@ -67,11 +70,15 @@ Item {
         }
     }
 
-    // Scroll to adjust volume, click to mute.
+    // Scroll to adjust volume, left-click to mute, right-click for the mixer.
     MouseArea {
         anchors.fill: parent
-        acceptedButtons: Qt.LeftButton
-        onClicked: {
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        onClicked: function(mouse) {
+            if (mouse.button === Qt.RightButton) {
+                root.mixerToggled()
+                return
+            }
             if (root.sink && root.sink.audio) root.sink.audio.muted = !root.muted
         }
         onWheel: function(wheel) {
